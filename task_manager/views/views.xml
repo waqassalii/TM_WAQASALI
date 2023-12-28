@@ -1,11 +1,57 @@
 <odoo>
     <data>
+        <!--task manager task kanban view-->
+        <record model="ir.ui.view" id="task_manager_task_kanban">
+            <field name="name">task.manager.task</field>
+            <field name="model">task.manager.task</field>
+            <field name="arch" type="xml">
+                <kanban class="ol_classes_kanban row" sample="1">
+                    <field name="id"/>
+                    <field name="title"/>
+                    <field name="deadline"/>
+                    <field name="completed"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="col-lg-3 p-0 oe_kanban_global_click ol_classes_kanban">
+                                <div class="profile-card card ol_card rounded-lg h-100 p-4 p-xl-5 text-center position-relative">
+                                    <div class="ol_banner mb-5">
+                                        <h2 class="text-style1">
+                                            <field name="title"/>
+                                        </h2>
+                                    </div>
+                                    <div class="card-details text-left mt-5 mb-0">
+                                        <p class="mb-2">
+                                            <i class="fa fa-clock-o mr-4"></i>
+                                            <b>Deadline:</b>
+                                            <field name="deadline"/>
+                                        </p>
+                                        <p class="mb-2">
+                                            <i class="fa fa-clock-o mr-4"></i>
+                                            <b>Days Left:</b>
+                                            <field name="deadline_days"/>
+                                        </p>
+                                        <p class="mb-2">
+                                            <i class="fa fa-book mr-3"></i>
+                                            <b>Status</b>:
+                                            <field name="state" widget="badge"
+                                                   decoration-success="state == 'complete'"/>
+                                        </p>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
         <!-- explicit list view definition -->
         <record model="ir.ui.view" id="task_manager_task_list">
             <field name="name">task_manager list</field>
             <field name="model">task.manager.task</field>
             <field name="arch" type="xml">
-                <tree>
+                 <tree>
                     <field name="title"/>
                     <field name="deadline"/>
                     <field name="completed"/>
@@ -13,12 +59,18 @@
                 </tree>
             </field>
         </record>
-        <!--    task manager form view-->
+        <!-- task manager form view-->
         <record model="ir.ui.view" id="task_manager_task_form">
             <field name="name">task.manager.task</field>
             <field name="model">task.manager.task</field>
             <field name="arch" type="xml">
-                <form>
+                 <form>
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="pending,complete,cancel"/>
+                        <button id="button_pending" name="action_pending" string="Pending" type="object" class="btn-primary" invisible="state not in ('cancel')"/>
+                        <button id="button_complete" name="action_complete" string="Complete" type="object" invisible="state not in ('pending')" class="btn-primary"/>
+                        <button id="button_cancel" name="action_cancel" string="Cancel" type="object" invisible="state not in ('pending', 'complete')"/>
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <h1>
@@ -28,6 +80,7 @@
                         <group>
                             <group>
                                 <field name="deadline"/>
+                                <field name="deadline_days"/>
                             </group>
                             <group>
                                 <field name="completed"/>
@@ -40,19 +93,31 @@
                 </form>
             </field>
         </record>
+        <!--        task manager task search view-->
+        <record id="task_manager_task_search" model="ir.ui.view">
+            <field name="name">task.manager.task</field>
+            <field name="model">task.manager.task</field>
+            <field name="arch" type="xml">
+                <search string="Task Manager">
+                    <field name="state"/>
+                    <filter string="Completed" name="completed_tasks" domain="[('completed', '=',True)]"/>
+                </search>
+
+            </field>
+        </record>
 
         <!-- actions opening views on models -->
         <record model="ir.actions.act_window" id="task_manager_task_action_window">
             <field name="name">Task Manager Task</field>
             <field name="res_model">task.manager.task</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form,search</field>
+            <field name="context">{'search_default_completed_tasks':1}</field>
         </record>
         <!-- Top menu item -->
         <menuitem name="Task Manager" id="task_manager_task_menu_root"/>
         <!-- menu categories -->
         <menuitem name="Task Manager" id="task_manager_task_menu_1" parent="task_manager_task_menu_root"/>
         <!-- actions -->
-        <menuitem name="Task Manager" id="task_manager_task_menu" parent="task_manager_task_menu_1"
-                  action="task_manager_task_action_window"/>
+        <menuitem name="Task Manager" id="task_manager_task_menu" parent="task_manager_task_menu_1" action="task_manager_task_action_window"/>
     </data>
 </odoo>

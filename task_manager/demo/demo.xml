@@ -1,30 +1,23 @@
 <odoo>
     <data>
-<!--
-          <record id="object0" model="task_manager.task_manager">
-            <field name="name">Object 0</field>
-            <field name="value">0</field>
-          </record>
-
-          <record id="object1" model="task_manager.task_manager">
-            <field name="name">Object 1</field>
-            <field name="value">10</field>
-          </record>
-
-          <record id="object2" model="task_manager.task_manager">
-            <field name="name">Object 2</field>
-            <field name="value">20</field>
-          </record>
-
-          <record id="object3" model="task_manager.task_manager">
-            <field name="name">Object 3</field>
-            <field name="value">30</field>
-          </record>
-
-          <record id="object4" model="task_manager.task_manager">
-            <field name="name">Object 4</field>
-            <field name="value">40</field>
-          </record>
--->
+         <record id="task_manager_demo_1" model="task.manager.task">
+            <field name="title">Test Task 1</field>
+            <field name="description">Test Task 1 Test Task 1 Test Task 1</field>
+             <field name="deadline" eval="(datetime.now() + relativedelta(weekday=0, weeks=1)).strftime('%Y-%m-%d')"/>
+            <field name="completed">True</field>
+            <field name="state">complete</field>
+        </record>
+        <record id="task_manager_demo_2" model="task.manager.task">
+            <field name="title">Test Task 2</field>
+            <field name="description">Test Task 2 Test Task 2 Test Task 2</field>
+             <field name="deadline" eval="(datetime.now() + relativedelta(weekday=0, weeks=2)).strftime('%Y-%m-%d')"/>
+            <field name="state">cancel</field>
+        </record>
+        <record id="task_manager_demo_3" model="task.manager.task">
+            <field name="title">Test Task 3</field>
+            <field name="description">Test Task 3 Test Task 3 Test Task 3</field>
+             <field name="deadline" eval="(datetime.now() + relativedelta(weekday=0, weeks=3)).strftime('%Y-%m-%d')"/>
+            <field name="state">pending</field>
+        </record>
     </data>
 </odoo>
