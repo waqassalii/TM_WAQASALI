@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="task_manager_task_list">
+            <field name="name">task_manager list</field>
+            <field name="model">task.manager.task</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="title"/>
+                    <field name="deadline"/>
+                    <field name="completed"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+        <!--    task manager form view-->
+        <record model="ir.ui.view" id="task_manager_task_form">
+            <field name="name">task.manager.task</field>
+            <field name="model">task.manager.task</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="title" placeholder="Title"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="deadline"/>
+                            </group>
+                            <group>
+                                <field name="completed"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="task_manager_task_action_window">
+            <field name="name">Task Manager Task</field>
+            <field name="res_model">task.manager.task</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Top menu item -->
+        <menuitem name="Task Manager" id="task_manager_task_menu_root"/>
+        <!-- menu categories -->
+        <menuitem name="Task Manager" id="task_manager_task_menu_1" parent="task_manager_task_menu_root"/>
+        <!-- actions -->
+        <menuitem name="Task Manager" id="task_manager_task_menu" parent="task_manager_task_menu_1"
+                  action="task_manager_task_action_window"/>
+    </data>
+</odoo>
