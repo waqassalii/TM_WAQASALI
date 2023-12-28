@@ -1,0 +1,36 @@
+/* adding shadow to sheet in form view */
+/* .o_form_sheet:hover{
+box-shadow: 10px 10px 10px lightgreen !important;
+} */
+.ol-shadow:hover{
+box-shadow: 2px 2px 8px red !important;
+}
+.text-style1{
+color:white;
+font-size:30px !important;
+margin-top:13px
+}
+.ol_card:hover{
+box-shadow: 5px 5px 20px #7c7bad !important;
+}
+.o_kanban_view.o_kanban_ungrouped .o_kanban_record.ol_classes_kanban {
+    width: 100%;
+    border: none!important;
+    background-color: transparent!important;
+    margin: 0!important;
+    padding: 1rem!important;
+}
+
+.ol_banner{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height:70px;
+//     background: #1D563A;
+    background: #7c7bad;
+}
+
+.card-details{
+margin-top:10px;
+}

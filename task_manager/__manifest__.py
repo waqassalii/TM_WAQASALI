@@ -12,6 +12,11 @@
         'security/ir.model.access.csv',
         'views/views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'task_manager/static/scr/classes_kanban.scss',
+        ],
+    },
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
